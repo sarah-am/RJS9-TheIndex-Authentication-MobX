@@ -24,10 +24,7 @@ class BookStore {
   }
 
   addBook(newBook, author) {
-    newBook = {
-      ...newBook,
-      authors: [author.id]
-    };
+    newBook.authors = [author.id];
     instance
       .post("/api/books/", newBook)
       .then(res => res.data)

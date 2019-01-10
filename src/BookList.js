@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 
 // Components
-import Loading from "./Loading";
 import SearchBar from "./SearchBar";
 import BookTable from "./BookTable";
 
@@ -27,10 +26,8 @@ class BookList extends Component {
       );
     }
 
-    return bookStore.loading ? (
-      <Loading />
-    ) : (
-      <div className="books">
+    return (
+      <div>
         <h3>Books</h3>
         <SearchBar store={bookStore} />
         {allBooksButton}
