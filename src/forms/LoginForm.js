@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+// Store
+import authStore from "../stores/authStore";
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +23,7 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    alert("I DON'T WORK YET");
+    authStore.login(this.state);
   }
 
   render() {
