@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import { observer } from "mobx-react";
 
 // Logo
 import logo from "./assets/theindex.svg";
+import authStore from "./stores/authStore";
 
 class Sidebar extends Component {
   render() {
@@ -17,9 +19,30 @@ class Sidebar extends Component {
             <NavLink to="/books">BOOKS</NavLink>
           </h4>
         </section>
+        <section>
+          {authStore.user ? (
+            <h4 className="menu-item">
+              <button
+                className="btn btn-primary"
+                onClick={() => authStore.logout()}
+              >
+                Logout: {authStore.user.username}
+              </button>
+            </h4>
+          ) : (
+            <div>
+              <h4 className="menu-item active">
+                <NavLink to="/login">Login</NavLink>
+              </h4>
+              <h4 className="menu-item">
+                <NavLink to="/signup">Signup</NavLink>
+              </h4>
+            </div>
+          )}
+        </section>
       </div>
     );
   }
 }
 
-export default Sidebar;
+export default observer(Sidebar);

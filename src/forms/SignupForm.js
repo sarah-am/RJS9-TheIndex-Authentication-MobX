@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+
+//Stores
+import authStore from "../stores/authStore";
 
 class Signup extends Component {
   constructor(props) {
@@ -15,16 +18,18 @@ class Signup extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
-    alert("I DON'T WORK YET");
-  }
+    authStore.signupUser(this.state, this.props.history);
+  };
 
   render() {
+    if (authStore.user) return <Redirect to="/" />;
+
     const { username, email, password } = this.state;
 
     return (
@@ -69,7 +74,11 @@ class Signup extends Component {
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                onClick={this.handleSubmit}
+              >
                 Signup
               </button>
               <Link to="/login" className="btn btn-link my-2 my-sm-0">

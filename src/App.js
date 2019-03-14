@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { observer } from "mobx-react";
 
+//Forms
+import LoginForm from "./forms/LoginForm";
+import SignupForm from "./forms/SignupForm";
+
 // Components
 import Sidebar from "./Sidebar";
 import Loading from "./Loading";
@@ -24,6 +28,8 @@ class App extends Component {
           <Route path="/authors/:authorID" component={AuthorDetail} />
           <Route path="/authors/" component={AuthorsList} />
           <Route path="/books/:bookColor?" component={BookList} />
+          <Route path="/login" component={LoginForm} />
+          <Route path="/signup" component={SignupForm} />
         </Switch>
       );
     }

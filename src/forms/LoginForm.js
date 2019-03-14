@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { observer } from "mobx-react";
+
+//Stores
+import authStore from "../stores/authStore";
 
 class Login extends Component {
   constructor(props) {
@@ -14,18 +18,18 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
-    alert("I DON'T WORK YET");
-  }
+    authStore.loginUser(this.state, this.props.history);
+  };
 
   render() {
+    if (authStore.user) return <Redirect to="/" />;
     const { username, password } = this.state;
-
     return (
       <div className="col-6 mx-auto">
         <div className="card my-5">
@@ -56,7 +60,11 @@ class Login extends Component {
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                onClick={this.handleSubmit}
+              >
                 Login
               </button>
               <Link to="/signup" className="btn btn-link my-2 my-sm-0">
@@ -70,4 +78,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default observer(Login);
